@@ -10,6 +10,18 @@ app.use(express.json());
 
 app.use(portfolio_route);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Listening to port no ${port}`);
 });
+
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "*"
+    }
+});
+
+io.on("connection", (socket) => {
+    socket.on("messageSent", data => {
+        socket.broadcast.emit("getMessage", data);
+    })
+})
