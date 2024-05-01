@@ -22,6 +22,6 @@ const io = require("socket.io")(server, {
 
 io.on("connection", (socket) => {
     socket.on("messageSent", data => {
-        socket.broadcast.emit("getMessage", data);
+        socket.broadcast.emit(data, data);
     })
 })
