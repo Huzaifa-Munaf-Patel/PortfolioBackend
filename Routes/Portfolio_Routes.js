@@ -46,8 +46,11 @@ router.get("/getDocs/:name", async (req,res) => {
 });
 
 //Creating Chat
-router.get("/createChat", async (req,res) => {
-    const data = new Chat();
+router.get("/createChat/:name", async (req,res) => {
+    const {name} = req.params;
+    const data = new Chat({
+        name
+    });
     const savedData = await data.save();
     res.json(savedData);
 });
